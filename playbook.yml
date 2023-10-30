@@ -1,0 +1,20 @@
+- name: install uptime kuma with nginx connected
+  hosts: all
+
+  vars:
+    pip_install_packages:
+      - name: wheel
+      - name: pip
+        state: latest
+      - name: setuptools
+      - name: cffi
+      - name: docker
+      - name: dockerpty
+    docker_compose_version: "v2.0.1"
+
+  roles:
+    - {role: requirements,            tags: ["docker", "requirements"]}
+    - {role: geerlingguy.docker,      tags: ["docker"]}
+    - {role: geerlingguy.pip,         tags: ["docker"]}
+    - {role: nginx,                   tags: ["nginx"]}
+    - {role: uptime-kuma,             tags: ["kuma"]}
