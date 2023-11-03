@@ -57,6 +57,7 @@ VOLUME /var/www/html
 #RUN docker-php-ext-enable memcached
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl intl mysqli gd bcmath
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ #--with-png=/usr/include/
+RUN pecl install imagick-3.4.3
 #RUN docker-php-ext-enable xdebug
 #RUN docker-php-ext-configure zip --with-libzip
 
