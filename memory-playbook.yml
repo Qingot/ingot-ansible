@@ -1,0 +1,20 @@
+---
+
+- name: "Getting information of Memory Status"
+  tags: ["memory"]
+  gather_facts: true
+  hosts: [temp]
+  vars_files:
+    vars/vars.yml
+
+  tasks:
+
+    - name: "Total RAM Checking"
+      shell: "cat /proc/meminfo|grep -i memtotal|awk '{print $2/1024/1024}'"
+      register: total_memory
+
+    - name: "Debugging Memory"
+      debug: var="ansible_memory_mb.real.total|float"
+
+    - name: "Debugging Memory"
+      debug: var="ansible_memory_mb.real.free|float"
