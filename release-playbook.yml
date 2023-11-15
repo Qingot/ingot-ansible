@@ -1,0 +1,73 @@
+---
+ # Deployment of 
+- name: Deploymet CD script
+  hosts: [temp]
+  gather_facts: false
+  vars_files:
+    - ~/repos/ingot-ansible/vars/main.yml
+
+  pre_tasks:
+
+    - name: take out of load balancer pool
+      tags: ["pool"]
+      command: /usr/bin/take_out_of_pool {{ inventory_hostname }}
+      delegate_to: 127.0.0.1
+
+  tasks:
+
+    - include_tasks: ~/repos/ingot-ansible/roles/common/tasks/release.yml
+
+  handlers:
+    - name: Start Git
+      service:
+        name:
+        state: started
+  
+  
+  #tasks:
+  #  - include_role:
+  #      name: "{{ item }}"
+  #    loop:
+  #      - common
+    
+    #- name: run any notified handlers
+    #  meta: flush_handlers
+
+
+  post_tasks:
+
+    - name: add back to load balancer pool
+      command: /usr/bin/add_back_to_pool {{ inventory_hostname }}
+      delegate_to: 127.0.0.1
+
+    - name: "Ansible Email Task"
+      mail:
+        host: smtp.office365.com
+        port: 587
+        username: ingotadmin@ingotbrokers.com
+        password: Wax92237
+        to: q.shahrour@ingotbrokers.com
+        subject: Summery fo Tasks
+        body: "Email Summery fo Tasks Deployments. Tasks Name is:"
+        sender: ingotadmin@ingotbrokers.com
+      when: 
+
+    - name: Notify Slack that the Job is Failing
+      tags: SLACK
+      slack:
+        token: T03QQ7RP6M9/B04KYT10F0C/2O8lHyRVJPz0U3ZU1OMixPu2
+        msg: |
+          ### StatusUpdate ###
+          – ------------------------------------
+          ``
+          `Server`: {{ansible_host}}
+          `Status`: Ansible api check health job failed
+          – ------------------------------------
+        channel: '#ansible-bot'
+        color: warning
+        username: 'Ansible on {{ inventory_hostname }}'
+        link_names: 0
+        parse: 'none'
+      when: ""
+      #when: "api_status.status != 422"
+      delegate_to: localhost

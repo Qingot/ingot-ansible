@@ -1,0 +1,65 @@
+--
+
+- name: "Health Check for api.ingotbrokers.com"
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+
+    - name: "Check API URL Status"
+      tags: ["API"]
+      uri:
+        url: https://api.ingotbrokers.com/v1/website/contact-requests
+        method: POST
+        body_format: json
+        body: '{"name":"testting","email":"testting@gmail.com","message":"testting","phone_code":"123","phone_number":"123456789","contact_request_subject_id":"1"}'
+        headers:
+          Accept: "application/json"
+          content_type: "application/json"
+        language: "en"
+        follow_redirects: all
+        return_content: false
+        validate_certs: false
+        status_code: [422]
+      delegate_to: localhost
+      register: apirequest
+    
+    - name: Notify Slack that the Job is Failing
+      tags: SLACK
+      slack:
+        token: T03QQ7RP6M9/B04KYT10F0C/2O8lHyRVJPz0U3ZU1OMixPu2
+        msg: |
+          ### StatusUpdate ###
+          – ------------------------------------
+          ``
+          `Server`: {{ansible_host}}
+          `Status`: Ansible api check health job failed
+          – ------------------------------------
+        channel: '#ansible-bot'
+        color: warning
+        username: 'Ansible on {{ inventory_hostname }}'
+        link_names: 0
+        parse: 'none'
+      when: "api_status.status != 422"
+      delegate_to: localhost
+
+    - name: Notify Slack that the job is Successful
+      tags: SLACK
+      slack:
+        token: T03QQ7RP6M9/B04KYT10F0C/2O8lHyRVJPz0U3ZU1OMixPu2
+        msg: |
+          ### StatusUpdate ###
+          – ------------------------------------
+          ``
+          `Server`: {{ansible_host}}
+          `Status`: Ansible api check health Job Successful.
+          – ------------------------------------
+        channel: '#ansible-bot'
+        color: good
+        username: 'Ansible on {{ inventory_hostname }}'
+        link_names: 0
+        parse: 'none'
+      when: "api_status.status == 422"
+      delegate_to: localhost
+
+

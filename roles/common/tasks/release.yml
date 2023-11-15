@@ -1,0 +1,22 @@
+---
+
+- name: "Release Step"
+  shell: "cd /var/www/release && git checkout . && git pull origin main"
+  register: cmd_result
+
+- name: "Wait For Release"
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 22
+  delegate_to: localhost
+
+- name: Debugging
+  assert:
+    that:
+      - "'not ready' not in cmd_result.stderr"
+      - "'gizmo enabled' in cmd_result.stdout"
+  
+#- name: Debugging
+#  fail:
+#    msg: 'service is not happy'
+#  when: "'AWESOME' not in webpage.content"

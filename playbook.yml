@@ -1,3 +1,5 @@
+---
+
 - name: install uptime kuma with nginx connected
   hosts: all
 
