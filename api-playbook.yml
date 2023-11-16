@@ -4,6 +4,13 @@
   hosts: localhost
   gather_facts: true
 
+  # Vars: variables that will apply to the play, on all target systems
+  #vars:
+  #  DDVE_public_IP : 34.107.103.175
+  #  destination_port: 3009
+  #  Instance_id : 8529834022607504819
+  #  S3_bucket_name : bucket_for_ddve_6
+
   tasks:
 
     - name: "Check API URL Status"
@@ -18,12 +25,19 @@
           content_type: "application/json"
         language: "en"
         follow_redirects: all
-        return_content: false
-        validate_certs: false
-        status_code: [422]
-      
+      return_content: false
+      validate_certs: false
+      status_code: [422]
+      vars:
+        resource_path: rest/v1.0/auth      
       delegate_to: localhost
       register: apirequest
+
+    - name: DEBUG / GOT INFO
+      debug:
+        msg: "{{ rest_post.json }}"
+      when: rest_post.status ==  201
+
     
     - name: Notify Slack that the Job is Failing
       tags: SLACK
