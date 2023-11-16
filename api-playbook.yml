@@ -25,11 +25,11 @@
           content_type: "application/json"
         language: "en"
         follow_redirects: all
-      return_content: false
-      validate_certs: false
-      status_code: [422]
-      vars:
-        resource_path: rest/v1.0/auth      
+        return_content: false
+        validate_certs: false
+        status_code: [422]
+        #vars:
+        #  resource_path: rest/v1.0/auth      
       delegate_to: localhost
       register: apirequest
 
