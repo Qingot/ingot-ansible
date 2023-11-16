@@ -14,7 +14,7 @@
   tasks:
 
     - name: "Check API URL Status"
-      tags: ["appi "contact_request_subject_id":"1."]
+      tags: ["api"]
       uri:
         url: https://api.ingotbrokers.com/v1/website/contact-requests
         method: POST
