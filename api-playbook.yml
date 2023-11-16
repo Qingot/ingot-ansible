@@ -2,7 +2,7 @@
 
 - name: "Health Check for api.ingotbrokers.com"
   hosts: localhost
-  gather_facts: false
+  gather_facts: true
 
   tasks:
 
