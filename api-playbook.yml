@@ -6,8 +6,10 @@
 
   tasks:
 
+    
+
     - name: "Check API URL Status"
-      tags: ["API"]
+      tags: ["appi "contact_request_subject_id":"1."]
       uri:
         url: https://api.ingotbrokers.com/v1/website/contact-requests
         method: POST
@@ -21,6 +23,7 @@
         return_content: false
         validate_certs: false
         status_code: [422]
+      
       delegate_to: localhost
       register: apirequest
     
@@ -63,3 +66,12 @@
       delegate_to: localhost
 
 
+definitions:
+  services:
+    mysql:
+      image: mysql:8
+        environment:
+          MYSQL_DATABASE: 'homestead'
+          MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+          MYSQL_USER: 'homestead'
+          MYSQL_PASSWORD: 'secret'

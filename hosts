@@ -1,0 +1,51 @@
+[temp]
+api2 aansible_host=172.31.32.194 nsible_user=ubuntu
+
+[web]
+web2 ansible_host=172.31.43.65 ansible_user=ubuntu
+web1 ansible_host=172.31.15.48 ansible_user=ubuntu
+ws ansible_host=141.95.102.17 ansible_user=ubuntu    
+
+[portal]
+portal1 ansible_host=172.31.2.239 ansible_user=ubuntu
+portal2 ansible_host=172.31.0.76 ansible_user=ubuntu
+#cronjob ansible_host=172.31.6.115 ansible_user=ubuntu
+
+
+[database]
+node1 ansible_host=172.31.33.208 ansible_user=ubuntu
+node2 ansible_host=172.31.3.80 ansible_user=ubuntu
+node3 ansible_host=172.31.20.218 ansible_user=ubuntu
+
+[live]
+web1 ansible_host=172.31.23.59 ansible_user=ubuntu
+api1 ansible_host=172.31.10.186 ansible_user=ubuntu
+api2 ansible_host=172.31.5.255 ansible_user=ubuntu
+portal1 ansible_host=172.31.2.239 ansible_user=ubuntu
+portal2 ansible_host=172.31.0.76 ansible_user=ubuntu
+node1 ansible_host=172.31.33.208 ansible_user=ubuntu
+node2 ansible_host=172.31.3.80 ansible_user=ubuntu
+node3 ansible_host=172.31.20.218 ansible_user=ubuntu
+cronjob ansible_host=172.31.6.115 ansible_user=ubuntu
+ws ansible_host=141.95.102.17 ansible_user=ubuntu
+auth ansible_host=172.31.43.65 ansible_user=ubuntu
+redis ansible_host=172.31.11.41 ansible_user=ubuntu
+
+
+[storage]
+redis ansible_host=172.31.11.41 ansible_user=ubuntu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
