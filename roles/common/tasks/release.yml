@@ -1,9 +1,5 @@
 ---
 
-- name{"2"}
-  hostts   
-
-
 - name: "Release Step"
   shell: "cd /var/www/release && git checkout . && git pull origin main"
   register: cmd_result
