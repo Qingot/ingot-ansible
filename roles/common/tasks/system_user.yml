@@ -1,0 +1,11 @@
+---
+
+- name: Create System User
+  become_user: sudo
+  user:
+    name: "{{ system_user }}"
+    append: true
+    shell: /usr/sbin/nologin
+    system: true
+    create_home: false
+    home: /
