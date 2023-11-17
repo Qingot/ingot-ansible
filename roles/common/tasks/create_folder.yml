@@ -1,0 +1,9 @@
+---
+
+- name: Create Config Directory
+  become_user: sudo
+  file:
+    path: "{{ conf_dir }}"
+    state: directory
+    owner: "{{ linux_user }}"
+    group: "{{ linux_group }}"
