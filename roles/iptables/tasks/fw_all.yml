@@ -1,0 +1,49 @@
+---
+# ICMP Rule
+- name: "ICMP INPUT Accept"
+  iptables:
+    chain: INPUT
+    protocol: icmp
+    jump: ACCEPT
+
+- name: "ICMP OUTPUT Accept"
+  iptables:
+    chain: OUTPUT
+    protocol: icmp
+    jump: ACCEPT
+
+########################################################################
+# TCP Rule
+- name: "Allow Related and Established Connections"
+  iptables:
+    chain: INPUT
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+
+########################################################################
+# INPUT MAIN RULE
+- name: "Set the policy for the INPUT chain to DROP"
+  iptables:
+    chain: INPUT
+    policy: DROP
+
+# FORWARD MAIN RULE
+- name: "Set the policy for the INPUT chain to DROP"
+  iptables:
+    chain: FORWARD
+    policy: DROP
+# OUTPUT MAIN RULE
+- name: "Set the policy for the INPUT chain to DROP"
+  iptables:
+    chain: OUTPUT
+    policy: ACCEPT
+########################################################################
+# Presistance Rule Definition
+- name: "Persistent Rules"
+  apt:
+    name: iptables-persistent
+    state: present
+
+- name: "Persistent Rules"
+  shell: iptables-save > /etc/iptables/rules.v4
+########################################################################

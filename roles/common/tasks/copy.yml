@@ -1,0 +1,11 @@
+---
+
+- name: CVopy Files To Destination
+  copy:
+    src:
+    dest:
+    owner:
+    group:
+    mode: 0755
+    remote_src: yes
+  when: present.stat.exists == false

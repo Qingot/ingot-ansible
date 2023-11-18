@@ -1,6 +1,6 @@
 ---
 
-- name: Create Config Directory
+- name: "Create Config Directory"
   become_user: sudo
   file:
     path: "{{ conf_dir }}"

@@ -1,0 +1,22 @@
+---
+# Make Rules Presistance
+- name: "Install iptables"
+  apt:
+    name: iptables
+    state: present
+# SSH Rule INPUT
+- name: "Accept only the local Machine"
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: 22
+    source: 172.17.0.1 # éventuellement /24
+    jump: ACCEPT
+# SSH Rule OUTPUT
+- name: "Bastion can Go Everywhere with SSH"
+  iptables:
+    chain: OUTPUT
+    protocol: tcp
+    destination_port: 22
+    jump: ACCEPT
+    state: present
