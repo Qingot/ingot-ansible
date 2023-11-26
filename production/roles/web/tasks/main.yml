@@ -18,14 +18,14 @@
   with_items:
     - software-properties-common
     - ca-certificates
-      - apt-transport-https
-      - lsb-release
-      - build-essential
-      - net-tools
-      - curl
-      - mysql-client-8.0
-      - unzip
-      - libssl-dev
+    - apt-transport-https
+    - lsb-release
+    - build-essential
+    - net-tools
+    - curl
+    - mysql-client-8.0
+    - unzip
+    - libssl-dev
   update_cache: true
   cache_valid_time: "{{ apt_cache_valid_time | default(3600) }}"
 
