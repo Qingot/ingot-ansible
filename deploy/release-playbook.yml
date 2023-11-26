@@ -1,6 +1,6 @@
 ---
  # Deployment of 
-- name: Deploymet CD script
+- name: "Deploymet CD Process"
   hosts: [temp]
   gather_facts: false
   vars_files:
@@ -8,7 +8,7 @@
 
   pre_tasks:
 
-    - name: take out of load balancer pool
+    - name: "take out of load balancer pool"
       tags: ["pool"]
       command: /usr/bin/take_out_of_pool {{ inventory_hostname }}
       delegate_to: 127.0.0.1
@@ -36,7 +36,7 @@
 
   post_tasks:
 
-    - name: add back to load balancer pool
+    - name: "add back to load balancer pool"
       command: /usr/bin/add_back_to_pool {{ inventory_hostname }}
       delegate_to: 127.0.0.1
 

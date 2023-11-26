@@ -10,11 +10,11 @@
   tasks:
 
     - name: "Total RAM Checking"
-      shell: "cat /proc/meminfo|grep -i memtotal|awk '{print $2/1024/1024}'"
+      shell: "cat /proc/meminfo |grep -i memtotal|awk '{print $2/1024/1024}'"
       register: total_memory
 
     - name: "Debugging Memory"
-      debug: var="ansible_memory_mb.real.total|float"
+      debug: var="ansible_memory_mb.real.total |float"
 
     - name: "Debugging Memory"
-      debug: var="ansible_memory_mb.real.free|float"
+      debug: var="ansible_memory_mb.real.free |float"

@@ -1,0 +1,40 @@
+---
+# This playbook contains common plays that will be run on all nodes.
+- name: Install ntp
+  tags: ntp
+  become: true
+  apt:
+    name: ntp
+    state: present
+  
+
+- name: "Configure ntp file"
+  tags: ntp
+  become: true
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+  notify: restart ntp
+
+- name: "Start the ntp service"
+  become: true
+  tags: ntp
+  service:
+    name: ntpd
+    state: started
+    enabled: true
+  
+
+- name: "Check if /etc/sysconfig/iptables exists"
+  stat:
+    path: /etc/sysconfig/iptables
+  register: ipt
+
+- name: "Place basic iptables rules"
+  become: true
+  template:
+    src: iptables.j2 
+    dest: /etc/sysconfig/iptables
+  notify: restart iptables
+  when: ipt is defined and ipt.stat.exists == false
+

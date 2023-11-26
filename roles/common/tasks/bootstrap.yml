@@ -1,0 +1,23 @@
+---
+
+# Update Server Key Packages
+- name: "Update apt keys"
+  tags: ["always", "bootstrap"]
+  become: true
+  command: apt-key update
+
+# Distribution upgrade for all Packages
+- name: "Upgrade apt Packages"
+  tags: ["always", "bootstrap"]
+  become: true
+  apt:
+    upgrade: dist
+    update_cache: true
+    cache_valid_time: "{{ apt_cache_valid_time | default(3600) }}"
+
+- name: "Update the Server"
+  tags: ["always", "bootstrap"]
+  become: true
+  apt:
+    name: "{{ packages }}"
+    state: present

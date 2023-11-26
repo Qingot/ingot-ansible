@@ -1,16 +1,16 @@
 ---
 
-- name: Install Bastion
+- name: "Install Bastion"
   hosts: [localhost]
-  gather_facts: false
+  gather_facts: true
   #connection: local
 
   vars_files:
     ../vars/main.yml
 
   tasks:
-    - include_tasks: ~/ingot-ansible/roles/common/tasks/fw_bastion.yml
-    - include_tasks: ~/ingot-ansible/roles/common/tasks/fw_all.yml
+    - include_tasks: fw_bastion.yml
+    - include_tasks: fw_all.yml
 
 
     

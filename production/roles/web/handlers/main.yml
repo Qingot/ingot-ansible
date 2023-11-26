@@ -1,0 +1,19 @@
+- name: restart-apache
+  become: true
+  service:
+    name: "apache2"
+    state: restarted
+
+- name: reload-fpm
+  become: true
+  service: 
+    name: "php{{ php_version }}-fpm"
+    state: reloaded
+
+- name: restart-iptables
+  become: true
+  service:
+    name: "iptables"
+    state: restarted
+
+    

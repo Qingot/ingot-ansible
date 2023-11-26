@@ -1,0 +1,3 @@
+httpd_port: 80
+ntpserver: localhost
+repository: git@bitbucket.org:sigmaltd/ingotbrokers.git

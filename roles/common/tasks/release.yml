@@ -1,5 +1,13 @@
 ---
 
+- name: "Update the Server"
+  tags: ["always", "bootstrap"]
+  become: true
+  apt:
+    update_cache: true
+    cache_valid_time: 360
+
+
 - name: "Release Step"
   shell: "cd /var/www/release && git checkout . && git pull origin main"
   register: cmd_result

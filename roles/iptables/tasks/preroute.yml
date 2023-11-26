@@ -1,0 +1,14 @@
+---
+
+- name: "Main Rule"
+  become: true
+  become_user: sudo
+  iptables:
+    table: nat
+    in_interface: eth0
+    protocol: tcp
+    match: tcp
+    destination_port: 80
+    jump: REDIRECT
+    to_ports: 8600
+    comment: Redirect web traffic to port 8600

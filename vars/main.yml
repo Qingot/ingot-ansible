@@ -1,0 +1,15 @@
+linux_user:
+  - linux
+
+linux_group:
+  - linux
+
+ubuntu_user:
+  - ubuntu
+
+ubuntu_group:
+  - ubuntu
+
+main_packages:
+  - htop
+  - build-essential
